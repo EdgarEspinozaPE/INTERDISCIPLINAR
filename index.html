@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CSID - Login</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<script src="validator.js"></script>
+	</head>
+	<body>
+		<div class="container pt-5">
+			<div class="text-center">
+				<h1>Login</h1>
+			</div>
+			<!--p>In this example, we use <code>.needs-validation</code>, which will add the validation effect AFTER the form has been submitting (if there's anything missing).</p>
+			<p>Try to submit this form before filling out the input fields, to see the effect.</p-->
+			<div class="container p-3 my-3 bg-dark text-white">
+				<form class="needs-validation" novalidate>
+					<div class="form-row justify-content-center align-items-center">
+						<div class="col-md-4 mb-3">
+						<!--div class="col-md-3 md-3"-->
+							<label for="validationCustomEmail">E-mail</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="validationCustomEmail" placeholder="E-mail"aria-describedby="inputGroupPrepend" required>
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroupPrepend">@unsa.edu.pe</span>
+								</div>
+								<div class="invalid-feedback">
+									Please type type E-mail.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row justify-content-center align-items-center">
+						<div class="col-md-4 mb-3">
+							<label for="validationCustomPassword">Password</label>
+								<input type="password" class="form-control" id="validationCustomPassword" placeholder="Password" required>
+								<div class="invalid-feedback">
+									Please type your password.
+								</div>
+						</div>
+					
+					</div>
+					<div class="d-flex justify-content-center pt-5">
+						<button class="btn btn-primary col-md-4 mb-3" type="submit">Login</button>
+					</div>
+				</form>
+				<!--h1>My First Bootstrap Page</h1>
+				<p>This container has a blue background color and a white text, and some extra padding and margins.</p-->
+			</div>
+			
+		</div>
+	</body>
+</html>
