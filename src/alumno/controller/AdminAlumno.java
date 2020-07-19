@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import alumno.dao.AlumnoDAO;
+import alumno.dao.DocumentoDAO;
 import alumno.model.Alumno;
 
 /**
@@ -34,7 +35,8 @@ public class AdminAlumno extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-	}
+	}  
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -67,6 +69,9 @@ public class AdminAlumno extends HttpServlet {
 				break;
 			case "mostrarporId":
 				mostrarporId(request, response);
+				break;
+			case "mostrarporCUI":
+				mostrarporCUI(request, response);
 				break;
 			case "showedit":
 				showEditar(request, response);
@@ -128,10 +133,16 @@ public class AdminAlumno extends HttpServlet {
 	}
 	private void mostrarporId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
-		Alumno alumno = alumnoDAO.obtenerPorId(1);
+		Alumno alumno = alumnoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("alumno", alumno);
 		dispatcher.forward(request, response);
-	}	
+	}
+	private void mostrarporCUI(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
+		Alumno alumno = alumnoDAO.obtenerPorCUI(request.getParameter("CUI"));
+		request.setAttribute("alumno", alumno);
+		dispatcher.forward(request, response);
+	}
 	
 	private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		Alumno alumno = alumnoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
@@ -142,7 +153,7 @@ public class AdminAlumno extends HttpServlet {
 	}
 	
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
-		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formato=new SimpleDateFormat("dd/MM/yyyy");
 		Alumno alumno;
 		try {
 			alumno = new Alumno(0, request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("apellido_paterno"), 

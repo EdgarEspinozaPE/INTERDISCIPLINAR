@@ -39,17 +39,16 @@ public class DocumentoDAO {
 	}
 
 	// listar todos los productos
-	public List<Documento> listarDocumentos() throws SQLException {
+	public List<Documento> listarDocumentos(int id) throws SQLException {
 
 		List<Documento> listaDocumentos = new ArrayList<Documento>();
-		String sql = "SELECT * FROM document";
+		String sql = "SELECT * FROM document WHERE id= ? ";
 		con.conectar();
 		connection = con.getJdbcConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resulSet = statement.executeQuery(sql);
-
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, id);
+		ResultSet resulSet = statement.executeQuery();
 		while (resulSet.next()) {
-			int id = resulSet.getInt("id");
 			String categoria = resulSet.getString("categoria");
 			java.sql.Date fechadoc = resulSet.getDate("fecha_doc");
 			String nroserie = resulSet.getString("nro_serie");

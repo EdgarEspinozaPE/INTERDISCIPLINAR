@@ -121,8 +121,8 @@ public class AdminDocumento extends HttpServlet {
 	
 	
 	private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
-		List<Documento> listaDocumentos= documentoDAO.listarDocumentos();
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
+		List<Documento> listaDocumentos= documentoDAO.listarDocumentos(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("lista", listaDocumentos);
 		dispatcher.forward(request, response);
 	}

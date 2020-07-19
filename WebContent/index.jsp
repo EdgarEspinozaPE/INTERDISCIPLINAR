@@ -35,7 +35,7 @@
 					<div class="container p-3 my-3 bg-dark">
 						<img src="search.png" class="mx-auto d-block" style="width:50%">
 						<div class="container pt-3">
-							<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=mostrarporId" role="button">Search</a>
+							<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=mostrar" role="button">Search</a>
 						</div>
 					</div>
 				</div>

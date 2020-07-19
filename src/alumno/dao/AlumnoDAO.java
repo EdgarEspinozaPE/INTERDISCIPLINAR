@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import alumno.model.Alumno;
 import alumno.model.Conexion;
 
@@ -94,6 +93,25 @@ public class AlumnoDAO {
 
 		return alumno;
 	}
+	public Alumno obtenerPorCUI(String CUI) throws SQLException {
+		Alumno alumno = null;
+
+		String sql = "SELECT * FROM student WHERE CUI= ? ";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, CUI);
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),
+					res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getDate("fecha_nacimiento"),
+					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("documentos"));
+		}
+		res.close();
+		con.desconectar();
+
+		return alumno;
+	}
 
 	// actualizar
 	public boolean actualizar(Alumno alumno) throws SQLException {
@@ -124,7 +142,7 @@ public class AlumnoDAO {
 	//eliminar
 	public boolean eliminar(Alumno alumno) throws SQLException {
 		boolean rowEliminar = false;
-		String sql = "DELETE FROM articulos WHERE ID=?";
+		String sql = "DELETE FROM student WHERE ID=?";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
