@@ -1,0 +1,18 @@
+CREATE TABLE `document` (
+  
+`id` int DEFAULT NULL,
+  
+`categoria` varchar(45) DEFAULT NULL,
+  
+`fecha_doc` date DEFAULT NULL,
+  
+`nro_serie` varchar(45) DEFAULT NULL,
+  
+`direccion_imagen` varchar(320) DEFAULT NULL,
+  
+KEY `id` (`id`),
+  
+CONSTRAINT `document_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`) ON DELETE CASCADE
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO document VALUE (1,"CONSTANCIA",'2020-12-12',"C453","Linkaleatorio");
