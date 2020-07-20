@@ -124,16 +124,16 @@ public class AlumnoDAO {
 		statement.setString(2, alumno.getDNI());
 		statement.setString(3, alumno.getPaterno());
 		statement.setString(4, alumno.getApellidomaterno());
-		System.out.println(alumno.getCUI());
-		statement.setInt(5, alumno.getId());
-		statement.setDate( 6, alumno.getFechanacimiento());
-		statement.setString(7, alumno.getDireccion());
-		statement.setString(8, alumno.getTelefono());
-		statement.setString(9, alumno.getNivel());
-		statement.setString(10, alumno.getDocumentos());
-		
-
+		System.out.println(alumno.getDNI());
+		statement.setDate( 5, alumno.getFechanacimiento());
+		statement.setString(6, alumno.getDireccion());
+		statement.setString(7, alumno.getTelefono());
+		statement.setString(8, alumno.getNivel());
+		statement.setString(9, alumno.getDocumentos());
+		System.out.println(sql);
+		statement.setInt(10, alumno.getId());
 		rowActualizar = statement.executeUpdate() > 0;
+		System.out.println(sql);
 		statement.close();
 		con.desconectar();
 		return rowActualizar;

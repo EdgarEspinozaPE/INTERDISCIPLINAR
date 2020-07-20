@@ -21,13 +21,13 @@ public class DocumentoDAO {
 
 	// insertar artículo
 	public boolean insertar(Documento documento) throws SQLException {
-		String sql = "INSERT INTO document (id, categoria, fechadoc, nroserie, direccionimagen) "
+		String sql = "INSERT INTO document (id, categoria, fecha_doc, nro_serie, direccion_imagen) "
 				+ "VALUES (?, ?, ?,?,?)";
 		System.out.println(documento.getCategoria());
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, null);
+		statement.setInt(1, documento.getId());
 		statement.setString(2, documento.getCategoria());
 		statement.setDate( 3, documento.getFechadoc());
 		statement.setString(4, documento.getNroserie());
@@ -59,16 +59,36 @@ public class DocumentoDAO {
 		con.desconectar();
 		return listaDocumentos;
 	}
+	public List<Documento> listarUnitario(String nroserie) throws SQLException {
 
-	// obtener por id
-	public Documento obtenerPorId(int id) throws SQLException {
-		Documento documento = null;
-
-		String sql = "SELECT * FROM document WHERE id= ? ";
+		List<Documento> listaDocumentos = new ArrayList<Documento>();
+		String sql = "SELECT * FROM document WHERE nro_serie= ? ";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setInt(1, id);
+		statement.setString(1, nroserie);
+		ResultSet resulSet = statement.executeQuery();
+		while (resulSet.next()) {
+			int id= resulSet.getInt("id");
+			String categoria = resulSet.getString("categoria");
+			java.sql.Date fechadoc = resulSet.getDate("fecha_doc");
+			String direccionimagen = resulSet.getString("direccion_imagen");
+			Documento documento = new Documento(id, categoria,fechadoc,nroserie,direccionimagen);
+			listaDocumentos.add(documento);
+		}
+		con.desconectar();
+		return listaDocumentos;
+	}
+
+	// obtener por id
+	public Documento obtenerPorNroserie(String nroserie) throws SQLException {
+		Documento documento = null;
+
+		String sql = "SELECT * FROM document WHERE nro_serie= ? ";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, nroserie);
 
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
@@ -77,23 +97,21 @@ public class DocumentoDAO {
 		}
 		res.close();
 		con.desconectar();
-
 		return documento;
 	}
 
 	// actualizar
 	public boolean actualizar(Documento documento) throws SQLException {
 		boolean rowActualizar = false;
-		String sql = "UPDATE document SET categoria=?, fecha_doc=?,nro_serie=?,direccion_imagen=? WHERE id=?";
+		String sql = "UPDATE document SET categoria=?, fecha_doc=?,direccion_imagen=? WHERE nro_serie=?";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, documento.getCategoria());
 		System.out.println(documento.getCategoria());
-		statement.setInt(2, documento.getId());
-		statement.setDate( 3, documento.getFechadoc());
+		statement.setDate( 2, documento.getFechadoc());
+		statement.setString(3, documento.getDireccionimagen());
 		statement.setString(4, documento.getNroserie());
-		statement.setString(5, documento.getDireccionimagen());
 		rowActualizar = statement.executeUpdate() > 0;
 		statement.close();
 		con.desconectar();
@@ -103,11 +121,11 @@ public class DocumentoDAO {
 	//eliminar
 	public boolean eliminar(Documento documento) throws SQLException {
 		boolean rowEliminar = false;
-		String sql = "DELETE FROM document WHERE ID=?";
+		String sql = "DELETE FROM document WHERE nro_serie=?";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setInt(1, documento.getId());
+		statement.setString(1, documento.getNroserie());
 
 		rowEliminar = statement.executeUpdate() > 0;
 		statement.close();

@@ -153,10 +153,10 @@ public class AdminAlumno extends HttpServlet {
 	}
 	
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
-		SimpleDateFormat formato=new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
 		Alumno alumno;
 		try {
-			alumno = new Alumno(0, request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("apellido_paterno"), 
+			alumno = new Alumno(Integer.parseInt(request.getParameter("id")), request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("apellido_paterno"), 
 					request.getParameter("apellido_materno"),formato.parse(request.getParameter("fecha_nacimiento")),request.getParameter("direccion"),
 					request.getParameter("telefono"),request.getParameter("nivel"),request.getParameter("documentos"));
 			alumnoDAO.actualizar(alumno);

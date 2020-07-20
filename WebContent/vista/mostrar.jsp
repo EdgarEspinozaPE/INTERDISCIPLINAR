@@ -22,18 +22,18 @@
 				<h1>Student</h1>
 			</div>
 
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <form class="form-inline md-form mr-auto" action ="AdminAlumno?action=mostrarporCUI" method="post">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="CUI">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-4 mb-4 pt-5">
+					<form class="form-inline md-form mr-auto" action ="AdminAlumno?action=mostrarporCUI" method="post">
+						<input class="form-control" type="text" placeholder="Search" aria-label="Search" name="CUI">
+						<button class="btn btn-primary" type="submit">Search</button>
+					</form>
+				</div>
+			</div>
 
 			<div class="container p-3 my-3 bg-dark d-flex justify-content-center">
 				<div class="card" style="width:400px">
-					<img class="card-img-top" src="https://marcianosmx.com/wp-content/uploads/2015/08/Dragon-Ball-Super-anime-3.jpg" alt="Card image" style="width:100%">
+					<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/768px-User_icon_2.svg.png" alt="Card image" style="width:100%">
 					<div class="card-body">
 						<h4 class="card-title text-black">
 							<c:out value="${alumno.paterno}"></c:out>
@@ -50,8 +50,17 @@
 						<a href="AdminDocumento?action=mostrar&id=<c:out value="${alumno.id}" />" class="btn btn-primary">Ver Documentos</a>
 					</div>
 				</div>
-				<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=showedit&id=<c:out value="${alumno.id}" />" role="button">Editar</a>
-				<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=eliminar&id=<c:out value="${alumno.id}" />" role="button">Eliminar</a>
+			</div>
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-4 pt-1">
+					<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=showedit&id=<c:out value="${alumno.id}" />" role="button">Editar</a>
+				</div>
+				<div class="col-md-4 pt-1">
+					<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=eliminar&id=<c:out value="${alumno.id}" />" role="button">Eliminar</a>
+				</div>
+				<div class="col-md-4 pt-1">
+					<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=index" role="button">Volver</a>
+				</div>
 			</div>
 		</div>
 </body>
