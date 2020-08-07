@@ -103,16 +103,7 @@
 							<div class="invalid-feedback">
 								Please provide a valid CUI.
 							</div-->
-							<label for="validationCustomEmail">E-mail</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="validationCustomEmail" placeholder="E-mail"aria-describedby="inputGroupPrepend" required>
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupPrepend">@unsa.edu.pe</span>
-								</div>
-								<div class="invalid-feedback">
-									Please type type E-mail.
-								</div>
-							</div>
+							
 						</div>
 						<div class="col-md-4 mb-3">
 							<!--input type="text" name="date" id="date" class="form-control datepicker" value="" required />
@@ -169,8 +160,8 @@
 
 					<div class="form-row">
 						<div class="col-md-2 mb-3">
-							<label for="validationCustomLevel">Level</label>
-							<input type="text" class="form-control" id="validationCustomLevel" placeholder="Level" maxlength="20" required name="nivel">
+							<label for="validationCustomLevel">Degree</label>
+							<input type="text" class="form-control" id="validationCustomLevel" placeholder="Degree" maxlength="20" required name="nivel">
 							<div class="invalid-feedback">
 								Please provide a valid Level.
 							</div>
