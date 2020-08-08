@@ -4,39 +4,42 @@ public class Alumno {
 	private int id;
 	private String CUI;
 	private String DNI;
-	private String paterno;
+	private String nombre;
+	private String apellidopaterno;
 	private String apellidomaterno;
 	private java.sql.Date fechanacimiento;
 	private String direccion;
 	private String telefono;
 	private String nivel;
-	private String documentos;
+	private String correo;
 	
-	public Alumno(int id, String CUI, String DNI, String paterno, String apellido_materno, Date fecha_nacimiento,String direccion,
-			String telefono,String nivel, String documentos) {
+	public Alumno(int id, String CUI, String DNI,String nombre, String apellido_paterno, String apellido_materno, Date fecha_nacimiento,String direccion,
+			String telefono,String nivel, String correo) {
 		this.id = id;
 		this.CUI = CUI;
 		this.DNI = DNI;
-		this.paterno = paterno;
+		this.nombre = nombre;
+		this.apellidopaterno = apellido_paterno;
 		this.apellidomaterno = apellido_materno;
 		this.fechanacimiento = new java.sql.Date(fecha_nacimiento.getTime());
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.nivel = nivel;
-		this.documentos = documentos;
+		this.correo = correo;
 	}
-	public Alumno(int id, String CUI, String DNI, String paterno, String apellido_materno, java.sql.Date fecha_nacimiento,String direccion,
-			String telefono,String nivel, String documentos) {
+	public Alumno(int id, String CUI, String DNI, String nombre, String apellido_paterno, String apellido_materno, java.sql.Date fecha_nacimiento,String direccion,
+			String telefono,String nivel, String correo) {
 		this.id = id;
 		this.CUI = CUI;
 		this.DNI = DNI;
-		this.paterno = paterno;
+		this.nombre = nombre;
+		this.apellidopaterno = apellido_paterno;
 		this.apellidomaterno = apellido_materno;
 		this.fechanacimiento = fecha_nacimiento;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.nivel = nivel;
-		this.documentos = documentos;
+		this.correo = correo;
 	}
 	//getters y setters
 	public int getId() {
@@ -57,11 +60,17 @@ public class Alumno {
 	public void setDNI(String DNI) {
 		this.DNI = DNI;
 	}
-	public String getPaterno() {
-		return paterno;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setPaterno(String paterno) {
-		this.paterno = paterno;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellidopaterno() {
+		return apellidopaterno;
+	}
+	public void setApellidopaterno(String apellido_paterno) {
+		this.apellidopaterno = apellido_paterno;
 	}
 	public String getApellidomaterno() {
 		return apellidomaterno;
@@ -93,10 +102,10 @@ public class Alumno {
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
-	public String getDocumentos() {
-		return documentos;
+	public String getCorreo() {
+		return correo;
 	}
-	public void setDocumentos(String documentos) {
-		this.documentos = documentos;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 }

@@ -107,11 +107,10 @@ public class AdminDocumento extends HttpServlet {
 		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
 		Documento documento;
 		try {
-			documento = new Documento(Integer.parseInt(request.getParameter("id")), request.getParameter("categoria"),formato.parse(request.getParameter("fechadoc")),request.getParameter("nroserie"),
+			documento = new Documento(request.getParameter("CUI"), request.getParameter("categoria"),formato.parse(request.getParameter("fechadoc")),request.getParameter("nroserie"),
 					request.getParameter("direccionimagen"));
 			documentoDAO.insertar(documento);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+			mostrar(request,response);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,8 +119,10 @@ public class AdminDocumento extends HttpServlet {
 	
 	private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		
-		String idpaso= request.getParameter("id");
-		request.setAttribute("id", idpaso);
+		String cuipaso= request.getParameter("CUI");
+		List<String> listaCategories = documentoDAO.listarCategories();
+		request.setAttribute("CUI", cuipaso);
+		request.setAttribute("lista", listaCategories);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/registerdocument.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -129,9 +130,9 @@ public class AdminDocumento extends HttpServlet {
 	
 	private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
-		List<Documento> listaDocumentos= documentoDAO.listarDocumentos(Integer.parseInt(request.getParameter("id")));
-		String idpaso=request.getParameter("id");
-		request.setAttribute("id", idpaso);
+		List<Documento> listaDocumentos= documentoDAO.listarDocumentos(request.getParameter("CUI"));
+		String cuipaso=request.getParameter("CUI");
+		request.setAttribute("CUI", cuipaso);
 		request.setAttribute("lista", listaDocumentos);
 		dispatcher.forward(request, response);
 	}
@@ -152,20 +153,22 @@ public class AdminDocumento extends HttpServlet {
 	private void mostrarporNroserie(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		List<Documento> listaDocumentos;
 		if(request.getParameter("nroserie")=="") {
-			listaDocumentos= documentoDAO.listarDocumentos(Integer.parseInt(request.getParameter("id")));
+			mostrar(request,response);
 		}
 		else {
-			listaDocumentos= documentoDAO.listarUnitario(request.getParameter("nroserie"));
+			listaDocumentos= documentoDAO.listarUnitario(request.getParameter("CUI"),request.getParameter("nroserie"));
+			String cuipaso = request.getParameter("CUI");
+			request.setAttribute("CUI", cuipaso);
+			request.setAttribute("lista", listaDocumentos);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
+			dispatcher.forward(request, response);
 		}
-		request.setAttribute("lista", listaDocumentos);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
-		dispatcher.forward(request, response);
 	}
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
 		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
 		Documento documento;
 		try {
-			documento = new Documento(Integer.parseInt(request.getParameter("id")), request.getParameter("categoria"),formato.parse(request.getParameter("fechadoc")),request.getParameter("nroserie"),
+			documento = new Documento(request.getParameter("CUI"), request.getParameter("categoria"),formato.parse(request.getParameter("fechadoc")),request.getParameter("nroserie"),
 					request.getParameter("direccionimagen"));
 			documentoDAO.actualizar(documento);
 			index(request, response);
@@ -181,7 +184,6 @@ public class AdminDocumento extends HttpServlet {
 		documentoDAO.eliminar(documento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
-		
 	}
 
 }

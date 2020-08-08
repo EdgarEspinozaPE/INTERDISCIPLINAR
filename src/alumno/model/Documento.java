@@ -1,34 +1,34 @@
 package alumno.model;
 import java.util.Date;
 public class Documento {
-	private int id;
+	private String CUI;
 	private String categoria;
 	private java.sql.Date fechadoc;
 	private String nroserie;
 	private String direccionimagen;
 	
-	public Documento(int id, String categoria, Date fechadoc,String nroserie,
+	public Documento(String CUI, String categoria, Date fechadoc,String nroserie,
 			String direccionimagen) {
-		this.id = id;
+		this.CUI = CUI;
 		this.categoria = categoria;
 		this.fechadoc = new java.sql.Date(fechadoc.getTime());
 		this.nroserie = nroserie;
 		this.direccionimagen = direccionimagen;
 	}
-	public Documento(int id, String categoria, java.sql.Date fechadoc,String nroserie,
+	public Documento(String CUI, String categoria, java.sql.Date fechadoc,String nroserie,
 			String direccionimagen) {
-		this.id = id;
+		this.CUI = CUI;
 		this.categoria = categoria;
 		this.fechadoc = fechadoc;
 		this.nroserie = nroserie;
 		this.direccionimagen = direccionimagen;
 	}
 	//getters y setters
-	public int getId() {
-		return id;
+	public String getCUI() {
+		return CUI;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCUI(String CUI) {
+		this.CUI = CUI;
 	}
 	public String getCategoria() {
 		return categoria;

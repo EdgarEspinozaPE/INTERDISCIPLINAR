@@ -21,8 +21,8 @@ public class AlumnoDAO {
 
 	// insertar artículo
 	public boolean insertar(Alumno alumno) throws SQLException {
-		String sql = "INSERT INTO student (id, CUI, DNI, apellido_paterno, apellido_materno, fecha_nacimiento, direccion, telefono, nivel, documentos) "
-				+ "VALUES (?, ?, ?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO students (id, CUI, DNI,nombre, apellido_paterno, apellido_materno, fecha_nacimiento, direccion, telefono, nivel, correo) "
+				+ "VALUES (?, ?, ?,?,?,?,?,?,?,?,?)";
 		System.out.println(alumno.getCUI());
 		con.conectar();
 		connection = con.getJdbcConnection();
@@ -30,13 +30,14 @@ public class AlumnoDAO {
 		statement.setString(1, null);
 		statement.setString(2, alumno.getCUI());
 		statement.setString(3, alumno.getDNI());
-		statement.setString(4, alumno.getPaterno());
-		statement.setString(5, alumno.getApellidomaterno());
-		statement.setDate( 6, alumno.getFechanacimiento());
-		statement.setString(7, alumno.getDireccion());
-		statement.setString(8, alumno.getTelefono());
-		statement.setString(9, alumno.getNivel());
-		statement.setString(10, alumno.getDocumentos());
+		statement.setString(4,  alumno.getNombre());
+		statement.setString(5, alumno.getApellidopaterno());
+		statement.setString(6, alumno.getApellidomaterno());
+		statement.setDate( 7, alumno.getFechanacimiento());
+		statement.setString(8, alumno.getDireccion());
+		statement.setString(9, alumno.getTelefono());
+		statement.setString(10, alumno.getNivel());
+		statement.setString(11, alumno.getCorreo());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -48,7 +49,7 @@ public class AlumnoDAO {
 	public List<Alumno> listarAlumnos() throws SQLException {
 
 		List<Alumno> listaAlumnos = new ArrayList<Alumno>();
-		String sql = "SELECT * FROM student";
+		String sql = "SELECT * FROM students";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		Statement statement = connection.createStatement();
@@ -58,14 +59,15 @@ public class AlumnoDAO {
 			int id = resulSet.getInt("id");
 			String CUI = resulSet.getString("CUI");
 			String DNI = resulSet.getString("DNI");
-			String paterno = resulSet.getString("apellido_paterno");
+			String nombre = resulSet.getString("nombre");
+			String apellido_paterno = resulSet.getString("apellido_paterno");
 			String apellido_materno = resulSet.getString("apellido_materno");
 			java.sql.Date fecha_nacimiento = resulSet.getDate("fecha_nacimiento");
 			String direccion = resulSet.getString("direccion");
 			String telefono = resulSet.getString("telefono");
 			String nivel = resulSet.getString("nivel");
-			String documentos = resulSet.getString("documentos");
-			Alumno alumno = new Alumno(id, CUI, DNI, paterno, apellido_materno, fecha_nacimiento,direccion,telefono,nivel,documentos);
+			String correo = resulSet.getString("correo");
+			Alumno alumno = new Alumno(id, CUI, DNI,nombre, apellido_paterno, apellido_materno, fecha_nacimiento,direccion,telefono,nivel,correo);
 			listaAlumnos.add(alumno);
 		}
 		con.desconectar();
@@ -76,7 +78,7 @@ public class AlumnoDAO {
 	public Alumno obtenerPorId(int id) throws SQLException {
 		Alumno alumno = null;
 
-		String sql = "SELECT * FROM student WHERE id= ? ";
+		String sql = "SELECT * FROM students WHERE id= ? ";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -84,9 +86,9 @@ public class AlumnoDAO {
 
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
-			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),
+			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),res.getString("nombre"),
 					res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getDate("fecha_nacimiento"),
-					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("documentos"));
+					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("correo"));
 		}
 		res.close();
 		con.desconectar();
@@ -96,16 +98,16 @@ public class AlumnoDAO {
 	public Alumno obtenerPorCUI(String CUI) throws SQLException {
 		Alumno alumno = null;
 
-		String sql = "SELECT * FROM student WHERE CUI= ? ";
+		String sql = "SELECT * FROM students WHERE CUI= ? ";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, CUI);
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
-			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),
+			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),res.getString("nombre"),
 					res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getDate("fecha_nacimiento"),
-					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("documentos"));
+					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("correo"));
 		}
 		res.close();
 		con.desconectar();
@@ -116,22 +118,23 @@ public class AlumnoDAO {
 	// actualizar
 	public boolean actualizar(Alumno alumno) throws SQLException {
 		boolean rowActualizar = false;
-		String sql = "UPDATE student SET CUI=?, DNI=?,apellido_paterno=?,apellido_materno=?, fecha_nacimiento=?,direccion=?,telefono=?,nivel=?,documentos=? WHERE id=?";
+		String sql = "UPDATE students SET CUI=?, DNI=?,nombre=?,apellido_paterno=?,apellido_materno=?, fecha_nacimiento=?,direccion=?,telefono=?,nivel=?,correo=? WHERE id=?";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, alumno.getCUI());
 		statement.setString(2, alumno.getDNI());
-		statement.setString(3, alumno.getPaterno());
-		statement.setString(4, alumno.getApellidomaterno());
+		statement.setString(3, alumno.getNombre());
+		statement.setString(4, alumno.getApellidopaterno());
+		statement.setString(5, alumno.getApellidomaterno());
 		System.out.println(alumno.getDNI());
-		statement.setDate( 5, alumno.getFechanacimiento());
-		statement.setString(6, alumno.getDireccion());
-		statement.setString(7, alumno.getTelefono());
-		statement.setString(8, alumno.getNivel());
-		statement.setString(9, alumno.getDocumentos());
+		statement.setDate( 6, alumno.getFechanacimiento());
+		statement.setString(7, alumno.getDireccion());
+		statement.setString(8, alumno.getTelefono());
+		statement.setString(9, alumno.getNivel());
+		statement.setString(10, alumno.getCorreo());
 		System.out.println(sql);
-		statement.setInt(10, alumno.getId());
+		statement.setInt(11, alumno.getId());
 		rowActualizar = statement.executeUpdate() > 0;
 		System.out.println(sql);
 		statement.close();
@@ -142,7 +145,7 @@ public class AlumnoDAO {
 	//eliminar
 	public boolean eliminar(Alumno alumno) throws SQLException {
 		boolean rowEliminar = false;
-		String sql = "DELETE FROM student WHERE ID=?";
+		String sql = "DELETE FROM students WHERE ID=?";
 		con.conectar();
 		connection = con.getJdbcConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);

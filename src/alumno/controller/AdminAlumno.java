@@ -107,9 +107,9 @@ public class AdminAlumno extends HttpServlet {
 		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
 		Alumno alumno;
 		try {
-			alumno = new Alumno(0, request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("apellido_paterno"), 
+			alumno = new Alumno(0, request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("nombre"), request.getParameter("apellido_paterno"), 
 					request.getParameter("apellido_materno"),formato.parse(request.getParameter("fecha_nacimiento")),request.getParameter("direccion"),
-					request.getParameter("telefono"),request.getParameter("nivel"),request.getParameter("documentos"));
+					request.getParameter("telefono"),request.getParameter("nivel"),request.getParameter("correo"));
 			alumnoDAO.insertar(alumno);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
@@ -156,9 +156,9 @@ public class AdminAlumno extends HttpServlet {
 		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
 		Alumno alumno;
 		try {
-			alumno = new Alumno(Integer.parseInt(request.getParameter("id")), request.getParameter("CUI"), request.getParameter("DNI"), request.getParameter("apellido_paterno"), 
+			alumno = new Alumno(Integer.parseInt(request.getParameter("id")), request.getParameter("CUI"), request.getParameter("DNI"),request.getParameter("nombre"), request.getParameter("apellido_paterno"), 
 					request.getParameter("apellido_materno"),formato.parse(request.getParameter("fecha_nacimiento")),request.getParameter("direccion"),
-					request.getParameter("telefono"),request.getParameter("nivel"),request.getParameter("documentos"));
+					request.getParameter("telefono"),request.getParameter("nivel"),request.getParameter("correo"));
 			alumnoDAO.actualizar(alumno);
 			index(request, response);
 		} catch (ParseException e) {
