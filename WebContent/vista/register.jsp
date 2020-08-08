@@ -176,13 +176,6 @@
 								Please provide a valid Level.
 							</div>
 						</div>
-						<div class="col-md-2 mb-3">
-							<label for="validationCustomYearOfEntering">Year of entering</label>
-							<input type="text" class="form-control" id="validationCustomYearOfEntering" placeholder="Year of entering" maxlength="4" required>
-							<div class="invalid-feedback">
-								Please provide a valid year.
-							</div>
-						</div>
 					</div>
 
 					<!--div class="form-row">

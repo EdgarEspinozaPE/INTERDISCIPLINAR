@@ -126,7 +126,7 @@ public class AdminAlumno extends HttpServlet {
 	
 	
 	private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostraraux.jsp");
 		List<Alumno> listaAlumnos= alumnoDAO.listarAlumnos();
 		request.setAttribute("lista", listaAlumnos);
 		dispatcher.forward(request, response);
@@ -140,8 +140,36 @@ public class AdminAlumno extends HttpServlet {
 	private void mostrarporCUI(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrar.jsp");
 		Alumno alumno = alumnoDAO.obtenerPorCUI(request.getParameter("CUI"));
-		request.setAttribute("alumno", alumno);
-		dispatcher.forward(request, response);
+		if(alumno == null) {
+			if( isNumeric(request.getParameter("CUI"))==false ) {
+				String[] apellidos= request.getParameter("CUI").split(" ");
+				alumno=alumnoDAO.obtenerPorApellidos(apellidos[0], apellidos[1]);
+				if(alumno==null)
+				{
+					dispatcher = request.getRequestDispatcher("/vista/mostraraux.jsp");
+					dispatcher.forward(request, response);
+				}
+				else {
+					request.setAttribute("alumno", alumno);
+					dispatcher.forward(request, response);
+				}
+			}
+			else {
+				alumno=alumnoDAO.obtenerPorDNI(request.getParameter("CUI"));
+				if(alumno==null)
+				{
+					dispatcher = request.getRequestDispatcher("/vista/mostraraux.jsp");
+					dispatcher.forward(request, response);
+				}
+				else {
+					request.setAttribute("alumno", alumno);
+					dispatcher.forward(request, response);
+				}
+			}
+		}
+		else
+			request.setAttribute("alumno", alumno);
+			dispatcher.forward(request, response);
 	}
 	
 	private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -175,5 +203,12 @@ public class AdminAlumno extends HttpServlet {
 		dispatcher.forward(request, response);
 		
 	}
-
+	private static boolean isNumeric(String cadena) {
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch(NumberFormatException nfe) {
+			return false;
+		}
+	}
 }

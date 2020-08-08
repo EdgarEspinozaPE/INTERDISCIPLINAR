@@ -114,6 +114,45 @@ public class AlumnoDAO {
 
 		return alumno;
 	}
+	public Alumno obtenerPorDNI(String DNI) throws SQLException {
+		Alumno alumno = null;
+
+		String sql = "SELECT * FROM students WHERE DNI= ? ";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, DNI);
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),res.getString("nombre"),
+					res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getDate("fecha_nacimiento"),
+					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("correo"));
+		}
+		res.close();
+		con.desconectar();
+
+		return alumno;
+	}
+	public Alumno obtenerPorApellidos(String apellido_paterno,String apellido_materno) throws SQLException {
+		Alumno alumno = null;
+
+		String sql = "SELECT * FROM students WHERE apellido_paterno= ? AND apellido_materno=? ";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, apellido_paterno);
+		statement.setString(2, apellido_materno);
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+			alumno = new Alumno(res.getInt("id"), res.getString("CUI"), res.getString("DNI"),res.getString("nombre"),
+					res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getDate("fecha_nacimiento"),
+					res.getString("direccion"), res.getString("telefono"), res.getString("nivel"), res.getString("correo"));
+		}
+		res.close();
+		con.desconectar();
+
+		return alumno;
+	}
 
 	// actualizar
 	public boolean actualizar(Alumno alumno) throws SQLException {

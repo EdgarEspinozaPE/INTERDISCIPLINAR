@@ -79,7 +79,70 @@ public class DocumentoDAO {
 		con.desconectar();
 		return listaDocumentos;
 	}
+	public List<Documento> listarFecha(String CUI,String fecha_doc,String categoria) throws SQLException {
 
+		List<Documento> listaDocumentos = new ArrayList<Documento>();
+		String sql = "SELECT * FROM documents WHERE fecha_doc= ? AND CUI=? AND categoria=?";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, fecha_doc);
+		statement.setString(2, CUI);
+		statement.setString(3, categoria);
+		ResultSet resulSet = statement.executeQuery();
+		while (resulSet.next()) {
+			//String categoria = resulSet.getString("categoria");
+			String nroserie = resulSet.getString("nro_serie");
+			java.sql.Date fechadoc = resulSet.getDate("fecha_doc");
+			String direccionimagen = resulSet.getString("direccion_imagen");
+			Documento documento = new Documento(CUI, categoria,fechadoc,nroserie,direccionimagen);
+			listaDocumentos.add(documento);
+		}
+		con.desconectar();
+		return listaDocumentos;
+	}
+	public List<Documento> listarFechaTodos(String CUI,String fecha_doc) throws SQLException {
+
+		List<Documento> listaDocumentos = new ArrayList<Documento>();
+		String sql = "SELECT * FROM documents WHERE fecha_doc= ? AND CUI=?";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, fecha_doc);
+		statement.setString(2, CUI);
+		ResultSet resulSet = statement.executeQuery();
+		while (resulSet.next()) {
+			String categoria = resulSet.getString("categoria");
+			String nroserie = resulSet.getString("nro_serie");
+			java.sql.Date fechadoc = resulSet.getDate("fecha_doc");
+			String direccionimagen = resulSet.getString("direccion_imagen");
+			Documento documento = new Documento(CUI, categoria,fechadoc,nroserie,direccionimagen);
+			listaDocumentos.add(documento);
+		}
+		con.desconectar();
+		return listaDocumentos;
+	}
+	public List<Documento> listarPorCategoria(String CUI,String categoria) throws SQLException {
+
+		List<Documento> listaDocumentos = new ArrayList<Documento>();
+		String sql = "SELECT * FROM documents WHERE categoria=? AND CUI=?";
+		con.conectar();
+		connection = con.getJdbcConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, categoria);
+		statement.setString(2, CUI);
+		ResultSet resulSet = statement.executeQuery();
+		while (resulSet.next()) {
+			//String categoria = resulSet.getString("categoria");
+			String nroserie = resulSet.getString("nro_serie");
+			java.sql.Date fechadoc = resulSet.getDate("fecha_doc");
+			String direccionimagen = resulSet.getString("direccion_imagen");
+			Documento documento = new Documento(CUI, categoria,fechadoc,nroserie,direccionimagen);
+			listaDocumentos.add(documento);
+		}
+		con.desconectar();
+		return listaDocumentos;
+	}
 	// obtener por id
 	public Documento obtenerPorNroserie(String nroserie) throws SQLException {
 		Documento documento = null;

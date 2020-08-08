@@ -86,6 +86,18 @@ public class AdminDocumento extends HttpServlet {
 				break;
 			}			
 		} catch (SQLException e) {
+			try {
+				index(request,response);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ServletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.getStackTrace(); 
 		}
 	}
@@ -131,9 +143,11 @@ public class AdminDocumento extends HttpServlet {
 	private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
 		List<Documento> listaDocumentos= documentoDAO.listarDocumentos(request.getParameter("CUI"));
+		List<String> listacategorias = documentoDAO.listarCategories();
 		String cuipaso=request.getParameter("CUI");
 		request.setAttribute("CUI", cuipaso);
 		request.setAttribute("lista", listaDocumentos);
+		request.setAttribute("listacategorias", listacategorias);
 		dispatcher.forward(request, response);
 	}
 	private void mostrarporId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
@@ -152,17 +166,36 @@ public class AdminDocumento extends HttpServlet {
 	}
 	private void mostrarporNroserie(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException , ServletException{
 		List<Documento> listaDocumentos;
-		if(request.getParameter("nroserie")=="") {
+		List<String> listacategorias = documentoDAO.listarCategories();
+		if(request.getParameter("nroserie")=="" & request.getParameter("categoria").equals("Todos")) {
 			mostrar(request,response);
 		}
-		else {
+		else if(request.getParameter("nroserie")!=""){
 			listaDocumentos= documentoDAO.listarUnitario(request.getParameter("CUI"),request.getParameter("nroserie"));
+			if(listaDocumentos.isEmpty() & isDate(request.getParameter("nroserie"))) {
+				if(request.getParameter("categoria").equals("Todos")==false) {
+					listaDocumentos = documentoDAO.listarFecha(request.getParameter("CUI"),request.getParameter("nroserie"),request.getParameter("categoria"));
+				}
+				else {
+					listaDocumentos = documentoDAO.listarFechaTodos(request.getParameter("CUI"), request.getParameter("nroserie"));
+				}
+			}
 			String cuipaso = request.getParameter("CUI");
 			request.setAttribute("CUI", cuipaso);
 			request.setAttribute("lista", listaDocumentos);
+			request.setAttribute("listacategorias", listacategorias);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
 			dispatcher.forward(request, response);
 		}
+		else {
+			listaDocumentos = documentoDAO.listarPorCategoria(request.getParameter("CUI"), request.getParameter("categoria"));
+			String cuipaso = request.getParameter("CUI");
+			request.setAttribute("CUI", cuipaso);
+			request.setAttribute("lista", listaDocumentos);
+			request.setAttribute("listacategorias", listacategorias);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/vista/mostrardocument.jsp");
+			dispatcher.forward(request, response);
+		}	
 	}
 	private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
 		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
@@ -184,6 +217,15 @@ public class AdminDocumento extends HttpServlet {
 		documentoDAO.eliminar(documento);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
+	}
+	private static boolean isDate(String cadena) {
+		SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			formato.parse(cadena);
+			return true;
+		} catch(ParseException e) {
+			return false;
+		}
 	}
 
 }

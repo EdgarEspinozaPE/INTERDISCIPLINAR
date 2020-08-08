@@ -24,16 +24,27 @@
 		<div class="row">
 				<div class="col-md-3 mb-3">
 				<label for="exampleFormControlSelect1">Categoría</label>
-				<select class="form-control" id="exampleFormControlSelect1">
-					<option value="MatriculaSemestral">Matricula semestral</option>
+				<select class="form-control" id="exampleFormControlSelect1" name="categoria" >
+					<!--  <option value="MatriculaSemestral">Matricula semestral</option>
 					<option value="MatriculaVerano">Matricula en curso de verano</option>
 					<option value="ReMatricula">Rematricula</option>
+					-->
+					<option <c:set var="categoria" value="Todos"/> >Todos</option>
+					<c:forEach var="categorias" items="${listacategorias}">
+						<option value="${categorias}">${categorias}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="col-md-4 mb-4 pt-4">
           			<form class="form-inline md-form mr-auto" action ="AdminDocumento?action=mostrarporNroserie&CUI=${CUI}" method="post">
             			<input class="form-control" type="text" placeholder="Search" aria-label="Search" name="nroserie">
             			<button class="btn btn-primary" type="submit">Search</button>
+            			<select class="form-control" id="exampleFormControlSelect1" name="categoria" >
+							<option value="Todos">Todos</option>
+							<c:forEach var="categorias" items="${listacategorias}">
+								<option value="${categorias}">${categorias}</option>
+							</c:forEach>
+						</select>
           			</form>
         		</div>
         	<div class="col-md-3 mb-4 pt-3">
@@ -60,7 +71,7 @@
 							<th scope="row"><c:out value="${documento.categoria}"/></th>
 							<td><c:out value="${documento.fechadoc}"/></td>
 							<td><c:out value="${documento.nroserie}"/></td>
-							<td><c:out value="${documento.direccionimagen}"/></td>
+							<td> <a href="${documento.direccionimagen}"/>${documento.direccionimagen}</a></td>
 							<td><a href="AdminDocumento?action=showedit&nroserie=<c:out value="${documento.nroserie}"/>">Editar</a></td>
 							<td><a href="AdminDocumento?action=eliminar&nroserie=<c:out value="${documento.nroserie}"/>">Eliminar</a></td>
 						</tr>
