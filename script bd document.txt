@@ -1,18 +1,11 @@
-CREATE TABLE `document` (
-  
-`id` int DEFAULT NULL,
-  
-`categoria` varchar(45) DEFAULT NULL,
-  
-`fecha_doc` date DEFAULT NULL,
-  
-`nro_serie` varchar(45) DEFAULT NULL,
-  
-`direccion_imagen` varchar(320) DEFAULT NULL,
-  
-KEY `id` (`id`),
-  
-CONSTRAINT `document_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`) ON DELETE CASCADE
-
+CREATE TABLE `documents` (
+  `CUI` varchar(8) NOT NULL,
+  `categoria` varchar(45) NOT NULL,
+  `fecha_doc` date NOT NULL,
+  `nro_serie` varchar(45) NOT NULL,
+  `direccion_imagen` varchar(300) NOT NULL,
+  KEY `CUI` (`CUI`),
+  KEY `categoria` (`categoria`),
+  CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`CUI`) REFERENCES `students` (`CUI`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `categories` (`categoria`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO document VALUE (1,"CONSTANCIA",'2020-12-12',"C453","Linkaleatorio");

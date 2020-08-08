@@ -1,0 +1,5 @@
+CREATE TABLE `categories` (
+  `categoria` varchar(45) NOT NULL,
+  PRIMARY KEY (`categoria`),
+  UNIQUE KEY `categoria_UNIQUE` (`categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

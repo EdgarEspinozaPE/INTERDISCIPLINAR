@@ -1,30 +1,16 @@
-CREATE TABLE `student` (
-  
-`id` int NOT NULL AUTO_INCREMENT,
-  
-`CUI` varchar(8) NOT NULL,
-  
-`DNI` varchar(8) DEFAULT NULL,
-  
-`apellido_paterno` varchar(45) DEFAULT NULL,
-  
-`apellido_materno` varchar(45) DEFAULT NULL,
-  
-`fecha_nacimiento` date DEFAULT NULL,
-  
-`direccion` varchar(45) DEFAULT NULL,
- 
-`telefono` varchar(20) DEFAULT NULL,
-  
-`nivel` varchar(20) DEFAULT NULL,
-  
-`documentos` varchar(45) DEFAULT NULL,
-  
-PRIMARY KEY (`id`,`CUI`),
-  
-UNIQUE KEY `CUI_UNIQUE` (`CUI`),
-  
-UNIQUE KEY `DNI_UNIQUE` (`DNI`)
-
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-INSERT INTO student values(1,"20190875","14182546","SANTOS", "RIVA",'2001-09-17', "Independencia N°452", "953426142","2","HTMLDOCUMENT" );
+CREATE TABLE `students` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `CUI` varchar(8) NOT NULL,
+  `DNI` varchar(8) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido_paterno` varchar(45) NOT NULL,
+  `apellido_materno` varchar(45) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `telefono` varchar(10) DEFAULT NULL,
+  `nivel` varchar(45) NOT NULL,
+  `correo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`,`CUI`),
+  UNIQUE KEY `CUI_UNIQUE` (`CUI`),
+  UNIQUE KEY `DNI_UNIQUE` (`DNI`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
