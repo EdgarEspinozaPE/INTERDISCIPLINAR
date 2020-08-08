@@ -38,8 +38,15 @@
 							</div>
 						</div>
 						<div class="col-md-4 mb-3">
+							<label for="validationCustomNombre">Nombre</label>
+							<input type="text" class="form-control" id="validationCustomNombre" placeholder="Nombre" maxlength="45" name ="nombre" value='<c:out value="${alumno.nombre}"></c:out>' required>
+							<div class="invalid-feedback">
+								Please type the student's first surname.
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
 							<label for="validationCustomFathersSurname">Father's surname</label>
-							<input type="text" class="form-control" id="validationCustomFathersSurname" placeholder="Father's surname" maxlength="45" name ="apellido_paterno" value='<c:out value="${alumno.paterno}"></c:out>' required>
+							<input type="text" class="form-control" id="validationCustomFathersSurname" placeholder="Father's surname" maxlength="45" name ="apellido_paterno" value='<c:out value="${alumno.apellidopaterno}"></c:out>' required>
 							<div class="invalid-feedback">
 								Please type the student's first surname.
 							</div>
@@ -49,6 +56,13 @@
 							<input type="text" class="form-control" id="validationCustomMothersSurname" placeholder="Mother's surname" maxlength="45" name= "apellido_materno" value='<c:out value="${alumno.apellidomaterno}"></c:out>' required>
 							<div class="invalid-feedback">
 								Please type the student's second surname.
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validationCustomcorreo">Correo</label>
+							<input type="text" class="form-control" id="validationCustomcorreo" placeholder="Correo" maxlength="45" name ="correo" value='<c:out value="${alumno.correo}"></c:out>' required>
+							<div class="invalid-feedback">
+								Please type the student's first surname.
 							</div>
 						</div>
 						<div class="col-md-4 mb-3">

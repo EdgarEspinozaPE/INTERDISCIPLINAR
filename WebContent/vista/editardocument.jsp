@@ -20,7 +20,7 @@
 			</div>
 
 			<div class="container p-3 my-3 bg-dark text-white">
-				<form class="needs-validation" action="AdminDocumento?action=editar&id=${documento.id}" method="post" novalidate>
+				<form class="needs-validation" action="AdminDocumento?action=editar&CUI=${documento.CUI}" method="post" novalidate>
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationCustomCategory">Categoría</label>

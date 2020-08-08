@@ -25,22 +25,22 @@
 				<div class="col-md-3 mb-3">
 				<label for="exampleFormControlSelect1">Categoría</label>
 				<select class="form-control" id="exampleFormControlSelect1">
-					<option value="MatriculaSemestral">Matrícula semestral</option>
-					<option value="MatriculaVerano">Matrícula en curso de verano</option>
-					<option value="ReMatricula">Rematrícula</option>
+					<option value="MatriculaSemestral">Matricula semestral</option>
+					<option value="MatriculaVerano">Matricula en curso de verano</option>
+					<option value="ReMatricula">Rematricula</option>
 				</select>
 			</div>
 			<div class="col-md-4 mb-4 pt-4">
-          			<form class="form-inline md-form mr-auto" action ="AdminDocumento?action=mostrarporNroserie&id=${id}" method="post">
+          			<form class="form-inline md-form mr-auto" action ="AdminDocumento?action=mostrarporNroserie&CUI=${CUI}" method="post">
             			<input class="form-control" type="text" placeholder="Search" aria-label="Search" name="nroserie">
             			<button class="btn btn-primary" type="submit">Search</button>
           			</form>
         		</div>
         	<div class="col-md-3 mb-4 pt-3">
-				<a class="btn btn-primary btn-lg btn-block" href="AdminDocumento?action=nuevo&id=${id}" role="button">Añadir documento</a>
+				<a class="btn btn-primary btn-lg btn-block" href="AdminDocumento?action=nuevo&CUI=${CUI}" role="button">Añadir documento</a>
 			</div>
 			<div class="col-md-2 mb-4 pt-3">
-				<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=mostrarporId&id=<c:out value="${lista[0].id}" />" role="button">Volver</a>
+				<a class="btn btn-primary btn-lg btn-block" href="AdminAlumno?action=mostrarporCUI&CUI=<c:out value="${CUI}" />" role="button">Volver</a>
 			</div>
 		</div>
 		<div class="container">

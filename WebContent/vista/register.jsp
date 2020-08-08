@@ -54,7 +54,7 @@
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationCustomFirstName">Name</label>
-							<input type="text" class="form-control" id="validationCustomFirstName" placeholder="First name" maxlength="45" required>
+							<input type="text" class="form-control" id="validationCustomFirstName" placeholder="First name" maxlength="45" required name="nombre">
 							<!--div class="valid-feedback">
 									Looks good!
 							</div-->
@@ -95,9 +95,19 @@
 							</div>
 						</div-->
 					</div>
-
 					<div class="form-row">
-						<div class="col-md-4 mb-3">
+					<div class="col-md-4 mb-3">
+						<label for="validationCustomUsername">Correo institucional</label>
+						<div class="input-group">
+						<input type="text" class="form-control" id="validationCustomUsername" placeholder="Correo" aria-describedby="inputGroupPrepend" required name="correo">
+						<div class="invalid-feedback">
+						Por favor ingrese el correo institucional.
+						</div>
+						<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroupPrepend">@unsa.edu.pe</span>
+						</div>
+						</div>
+						
 							<!--label for="validationCustomCUI">CUI</label>
 							<input type="text" class="form-control" id="validationCustomCUI" placeholder="CUI" maxlength="8" required>
 							<div class="invalid-feedback">

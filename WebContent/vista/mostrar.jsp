@@ -36,18 +36,20 @@
 					<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/768px-User_icon_2.svg.png" alt="Card image" style="width:100%">
 					<div class="card-body">
 						<h4 class="card-title text-black">
-							<c:out value="${alumno.paterno}"></c:out>
+							<c:out value="${alumno.apellidopaterno}"></c:out>
 							<c:out value="${alumno.apellidomaterno}"></c:out>
+							<c:out value="${alumno.nombre}"></c:out>
 						</h4>
 						<p class="card-text text-black">
 							CUI: <c:out value="${alumno.CUI}"></c:out><br>
 							DNI: <c:out value="${alumno.DNI}"></c:out><br>
+							Correo:<c:out value="${alumno.correo}"></c:out>@unsa.edu.pe<br>
 							Fecha de Nacimiento: <c:out value="${alumno.fechanacimiento}"></c:out><br>
 							Direccion: <c:out value="${alumno.direccion}"></c:out><br>
 							Telefono: <c:out value="${alumno.telefono}"></c:out><br>
 							Nivel: <c:out value="${alumno.nivel}"></c:out>
 						</p>
-						<a href="AdminDocumento?action=mostrar&id=<c:out value="${alumno.id}" />" class="btn btn-primary">Ver Documentos</a>
+						<a href="AdminDocumento?action=mostrar&CUI=<c:out value="${alumno.CUI}" />" class="btn btn-primary">Ver Documentos</a>
 					</div>
 				</div>
 			</div>
